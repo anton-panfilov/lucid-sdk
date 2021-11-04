@@ -3,12 +3,11 @@ import json
 
 
 class sdk:
-    base_url = "https://api.leaptheory.com/v2/"
-
-    def __init__(self, login_key, token='', save_token_trigger=None):
+    def __init__(self, login_key, token='', save_token_trigger=None, base_url="https://api.leaptheory.com/v2/"):
         self.login_key = str(login_key)
         self.token = token
         self.save_token_trigger = save_token_trigger
+        self.base_url = base_url
 
     def get_token(self):
         if not isinstance(self.token, str) or self.token == '':
