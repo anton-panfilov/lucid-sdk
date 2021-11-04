@@ -2,7 +2,7 @@ import requests
 import json
 
 
-class sdk:
+class Sdk:
     def __init__(self, login_key, token='', save_token_trigger=None, base_url="https://api.leaptheory.com/v2/"):
         self.login_key = str(login_key)
         self.token = token
