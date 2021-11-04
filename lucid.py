@@ -9,12 +9,12 @@ class Sdk:
         self.save_token_trigger = save_token_trigger
         self.base_url = base_url
 
-    def get_token(self):
+    def __get_token(self):
         if not isinstance(self.token, str) or self.token == '':
-            self.login()
+            self.__login()
         return self.token
 
-    def login(self):
+    def __login(self):
         res = requests.post(
             self.base_url + "auth/get-token",
             headers={'Content-Type': 'application/json'},
@@ -38,14 +38,14 @@ class Sdk:
             raise Exception("login error")
 
     def payday_score(self, request, relogin=True):
-        token = self.get_token()
+        token = self.__get_token()
         res = requests.post(
             self.base_url + "buyer/score/payday",
             headers={'Authorization': f'Bearer {token}', 'Content-Type': 'application/json'},
             data=json.dumps(request))
 
         if relogin and res.status_code == 401:
-            self.login()
+            self.__login()
             return self.payday_score(request, relogin=False)
         elif res.status_code == 200:
             jres = json.loads(res.text)
